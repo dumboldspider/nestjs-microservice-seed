@@ -1,3 +1,4 @@
+import { Errors } from './../common/errors.enum';
 import { uuidValidate } from './../utils/uuidValidate';
 import { CreatePostDto } from './dtos/createPost.dto';
 import { PrismaService } from './../prisma/prisma.service';
@@ -35,7 +36,9 @@ export class PostsService {
       },
     });
     if (!existingPost) {
-      throw new NotFoundException(`Post with id ${id} does not exist`);
+      throw new NotFoundException(
+        `${Errors.NOT_FOUND}: Post with id ${id} does not exist`,
+      );
     }
 
     return existingPost;
@@ -50,7 +53,7 @@ export class PostsService {
     });
     if (!existingAuthor) {
       throw new NotFoundException(
-        `Author with id ${data.authorId} does not exist`,
+        `${Errors.NOT_FOUND}: Author with id ${data.authorId} does not exist`,
       );
     }
 
@@ -77,7 +80,9 @@ export class PostsService {
       },
     });
     if (!existingPost) {
-      throw new NotFoundException(`Post with id ${id} does not exist`);
+      throw new NotFoundException(
+        `${Errors.NOT_FOUND}: Post with id ${id} does not exist`,
+      );
     }
 
     // if update authorId, check if author exists
@@ -89,7 +94,7 @@ export class PostsService {
       });
       if (!existingAuthor) {
         throw new NotFoundException(
-          `Author with id ${data.authorId} does not exist`,
+          `${Errors.NOT_FOUND}: Author with id ${data.authorId} does not exist`,
         );
       }
     }
@@ -118,7 +123,9 @@ export class PostsService {
       },
     });
     if (!existingPost) {
-      throw new NotFoundException(`Post with id ${id} does not exist`);
+      throw new NotFoundException(
+        `${Errors.NOT_FOUND}: Post with id ${id} does not exist`,
+      );
     }
 
     await this.prisma.post.delete({

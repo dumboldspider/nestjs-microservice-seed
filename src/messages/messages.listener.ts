@@ -14,6 +14,8 @@ export class MessagesListenerController {
 
     console.log(message);
 
+    channel.ack(originalMessage); // acknowledge message
+
     try {
     } catch {}
   }

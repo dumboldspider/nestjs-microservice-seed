@@ -1,3 +1,4 @@
+import { Errors } from './../common/errors.enum';
 import { uuidValidate } from './../utils/uuidValidate';
 import { UpdateUserDto } from './dtos/updateUser.dto';
 import { PrismaService } from './../prisma/prisma.service';
@@ -30,7 +31,9 @@ export class UsersService {
       },
     });
     if (!existingUser) {
-      throw new NotFoundException(`User with id ${id} does not exist`);
+      throw new NotFoundException(
+        `${Errors.NOT_FOUND}: User with id ${id} does not exist`,
+      );
     }
 
     return existingUser;
@@ -46,7 +49,7 @@ export class UsersService {
     });
     if (existingUserWithEmail) {
       throw new BadRequestException(
-        `Email ${createUserDto.email} is already in use`,
+        `${Errors.INVALID_ENTRY}: Email ${createUserDto.email} is already in use`,
       );
     }
 
@@ -72,7 +75,9 @@ export class UsersService {
       },
     });
     if (!existingUser) {
-      throw new NotFoundException(`User with id ${id} does not exist`);
+      throw new NotFoundException(
+        `${Errors.NOT_FOUND}: User with id ${id} does not exist`,
+      );
     }
 
     // if trying to change email, check if email is already in use
@@ -84,7 +89,7 @@ export class UsersService {
       });
       if (existingUserWithEmail) {
         throw new BadRequestException(
-          `Email ${updateUserDto.email} is already in use`,
+          `${Errors.INVALID_ENTRY}: Email ${updateUserDto.email} is already in use`,
         );
       }
     }
@@ -112,7 +117,9 @@ export class UsersService {
       },
     });
     if (!existingUser) {
-      throw new NotFoundException(`User with id ${id} does not exist`);
+      throw new NotFoundException(
+        `${Errors.NOT_FOUND}: User with id ${id} does not exist`,
+      );
     }
 
     // delete user
