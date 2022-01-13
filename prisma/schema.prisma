@@ -10,18 +10,18 @@ datasource db {
   url      = env("DB_URL")
 }
 
-model User {
-  id    String  @id
-  email String  @unique
-  name  String?
-  posts Post[]
-}
+// model User {
+//   id    String  @id
+//   email String  @unique
+//   name  String?
+//   posts Post[]
+// }
 
-model Post {
-  id        String   @id
-  title     String
-  content   String?
-  published Boolean? @default(false)
-  author    User?    @relation(fields: [authorId], references: [id])
-  authorId  String?
-}
+// model Post {
+//   id        String   @id
+//   title     String
+//   content   String?
+//   published Boolean? @default(false)
+//   author    User?    @relation(fields: [authorId], references: [id])
+//   authorId  String?
+// }
