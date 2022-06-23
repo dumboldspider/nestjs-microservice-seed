@@ -4,6 +4,7 @@ import { ConfigModule } from '@nestjs/config';
 // import { join } from 'path';
 import { ProxyRMQModule } from './proxyRMQ/proxyRMQ.module';
 import { PrismaModule } from './prisma/prisma.module';
+import { BaseModule } from './base/base.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { PrismaModule } from './prisma/prisma.module';
     //     requireResolversForResolveType: 'ignore',
     //   },
     // }),
+    BaseModule,
     PrismaModule,
     ProxyRMQModule,
   ],
