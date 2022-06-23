@@ -11,13 +11,15 @@ import { Transport } from '@nestjs/microservices';
 const logger = new Logger('Microservice');
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { cors: true });
+
+  await app.listen(process.env.PORT || 3000).then(() => {
+    logger.log(`Main service running on port ${process.env.PORT || 3000}...`);
+  });
 
   app.useGlobalInterceptors(new LoggingInterceptor());
   app.useGlobalInterceptors(new TimeoutInterceptor());
   app.useGlobalFilters(new AllExceptionsFilter());
-
-  await app.listen(process.env.PORT || 3000);
 
   // Microservice listener
   const microservice = await NestFactory.createMicroservice(
@@ -40,7 +42,7 @@ async function bootstrap() {
   );
 
   await microservice.listen().then(() => {
-    logger.log('Microservice is listening...');
+    logger.log(`Microservice is listening on ${process.env.RMQ_QUEUE}...`);
   });
 }
 bootstrap();
